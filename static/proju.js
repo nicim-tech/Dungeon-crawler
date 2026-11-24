@@ -11,7 +11,7 @@ const messageP = document.getElementById("message");
 
 //--item definitions--
 const ITEMS = {
-    sword: {name: "Sword"}
+    sword: {name: "Sword"},
     potion: {name: "potion", heal}
 
 }
