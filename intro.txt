@@ -1,1 +1,2 @@
-Testi.
+Tervetuloa pelaamaan! Tässä pelissä tavoitteesi on voittaa kolme eri vastustajaa ja läpäistä kolme tasoa, jotta pääset pelin loppuun asti. 
+Voitat vain jos pääset loppuun asti Onnea peliin!
