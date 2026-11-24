@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,15 +10,32 @@
     <header>
         <h1>Dungeon crawler</h1>
     </header>
-
     <main>
+        <!-- Start screen -->
+        <section id="start-screen">
+            <button id="start-btn">Start game</button>
+            <button id="load-btn">Continue saved game</button>
+        </section>
+
+        <!-- Game screen -->
         <section id="game" hidden>
             <div id="stats">
                 <p>HP: <span id="hp">100</span></p>
+                <p>Shield: <span id="shield">0</span></p>
                 <p>Floor: <span id="floor">1</span></p>
             </div>
             <div id="log"></div>
-            <button id="action-btn">Go forward</button>
+            <div id="doors">
+                <button id="door-left">Left door</button>
+                <button id="door-right">Right door</button>
+            </div>
+            <button id="save-btn">Save game</button>
+        </section>
+
+        <!-- End screen -->
+        <section id="end-screen" hidden>
+            <h2>You beat the game!</h2>
+            <button id="restart-btn">Play again</button>
         </section>
     </main>
     <script src="/static/proju.js"></script>
