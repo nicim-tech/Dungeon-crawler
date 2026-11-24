@@ -1,0 +1,25 @@
+body {
+    display: block;
+    place-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: block;
+    place-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+box {
+    border: 20px;
+    margin-bottom: 15px;
+}
+
+backround-image {
+    size: cover;
+    position: center;
+    height: 100px;
+    margin: 0;
+}
