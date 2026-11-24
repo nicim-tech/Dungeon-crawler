@@ -1,5 +1,5 @@
 Ohjeet pelin pelaamiseen.
 Näin pelaat:
 1. Paina 'start game' aloittaaksesi pelin.
-2. Etsi oikeat huoneet, jossa on vastustaja ja käytä nuoli näppäimiä liikkuaksesi.
+2. Liikkuaksesi pelissä voit käyttää nuolinäppäimiä ja 
 3. 
