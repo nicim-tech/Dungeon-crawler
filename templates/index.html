@@ -18,20 +18,30 @@
         </section>
 
         <!-- Game screen -->
-        <section id="game" hidden>
-            <div id="stats">
-                <p>HP: <span id="hp">100</span></p>
-                <p>Shield: <span id="shield">0</span></p>
-                <p>Floor: <span id="floor">1</span></p>
-            </div>
-            <div id="log"></div>
-            <div id="doors">
-                <button id="door-left">Left door</button>
-                <button id="door-right">Right door</button>
-            </div>
-            <button id="save-btn">Save game</button>
-        </section>
+<section id="game-screen" hidden>
+    <div id="stats">
+        <p>HP: <span id="hp-text">100</span></p>
+        <div id="hp-bar"><div id="hp-fill"></div></div>
+        <p>Shield: <span id="shield">0</span></p>
+        <p>Floor: <span id="floor">1</span></p>
+    </div>
 
+    <div id="boss-hp-bar" hidden>
+        <div id="boss-hp-fill"></div>
+    </div>
+
+    <canvas id="game" width="800" height="450"></canvas>
+
+    <p id="inventory">Inventory: empty</p>
+    <p id="message"></p>
+
+    <div id="log"></div>
+    <div id="doors">
+        <button id="door-left">Left door</button>
+        <button id="door-right">Right door</button>
+    </div>
+    <button id="save-btn">Save game</button>
+</section>
         <!-- End screen -->
         <section id="end-screen" hidden>
             <h2>You beat the game!</h2>
