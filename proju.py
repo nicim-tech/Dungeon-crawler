@@ -49,6 +49,16 @@ def index():
 def get_state():
     return jsonify(load_state())
 
+@app.route("/api/has_save")
+def has_save():
+    return jsonify({"exists": os.path.exists(SAVE_FILE)})
+
+@app.route("/api/reset", methods=["POST"])
+def reset():
+    state = new_state()
+    save_state(state)
+    return jsonify(state)
+
 @app.route("/api/attack", methods=["POST"])
 def attack():
     state = load_state()
@@ -64,12 +74,6 @@ def attack():
 
     if state["hp"] == 0:
         state["status"] = "dead"
-    save_state(state)
-    return jsonify(state)
-
-@app.route("/api/reset", methods=["POST"])
-def reset():
-    state = new_state()
     save_state(state)
     return jsonify(state)
 
