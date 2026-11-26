@@ -53,6 +53,12 @@ def get_state():
 def has_save():
     return jsonify({"exists": os.path.exists(SAVE_FILE)})
 
+@app.route("/api/save", methods=["POST"])
+def save():
+    state = clean_state(request.get_json(silent=True) or {}) 
+    save_state(state) 
+    return jsonify(state)
+
 @app.route("/api/reset", methods=["POST"])
 def reset():
     state = new_state()
