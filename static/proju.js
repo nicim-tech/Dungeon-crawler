@@ -179,4 +179,3 @@ quitBtn.onclick = async () => {
 
 // ---------- LOOP ----------
 function loop() { update(); draw(); requestAnimationFrame(loop); }
-loadGame().then(loop);

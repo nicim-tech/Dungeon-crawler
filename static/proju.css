@@ -26,3 +26,15 @@ backround-image {
 #hp-bar, #boss-hp-bar { width: 300px; height: 16px; background: #444; }
 #hp-fill { height: 100%; width: 100%; background: rgb(238, 168, 238); }
 #boss-hp-fill { height: 100%; width: 100%; background: #c44; }
+
+#start-screen {
+    min-height: 100vh;                        
+    display: flex;
+    flex-direction: column;
+    justify-content: center;                  
+    align-items: center;                       
+    text-align: center;
+    background-image: url("/static/images/start.jpg");
+    background-size: cover;
+    background-position: center;
+}
