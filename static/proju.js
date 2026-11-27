@@ -80,3 +80,56 @@ window.addEventListener("keydown", e => {
 })
 window.addEventListener("keyup", e => {keys[e.key] = false; });
 
+//--helpers--
+function overlap(a, b) {
+    return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+}
+const hitbox = () => ({x: state.player.x, y: state.player.y, w:30, h:30 });
+
+function ROOMenter(id, spawn) {
+    room.state = id;
+    if (spawn) {state.player.x = spawn.x; state.player.y = spawn.y; }
+}
+
+//--start screen--
+async function api(url, method = "POST") {
+    const res await fetch(url{ method });
+    if (!res ok) throw new Error("Server error " + res.status);
+    return res.json();
+}
+
+const startScreen = document.getElementById("start-screen");
+const gameScreen = document.getElementById("game-screen");
+const endScreen = document.getElementById("end-screen");
+const startBtn = document.getElementById("start-btn");
+const loadBtn = document.getElementById("load-btn");
+const restartBtn = document.getElementById("restart-btn");
+const startMsg = document.getElementById("start-btn");
+
+function showScreen(screen) {
+    for (const s of [startScreen, gameScreen, endScreen]) s.hidden = true;
+    screen.hidden = false;
+}
+function showGame(state) {
+    showScreen(gameScreen);
+
+}
+startBtn.onclick = async () => {
+    try { showGame(await api("/api/reset/", "GET")); }
+    catch (err) { startMsg.textContent = "Could not start: " + err.message; }
+};
+loadBtn.onclick = async () => {
+    try { showGame(await api("/api/state/", "GET")); }
+    catch (err) { startMsg.textContent = "Could not load: " + err.message; }
+};
+restartBtn.onclick = async () => {
+    try { showGame (await api("/api/reset/")); }
+    catch (err) { console.error(err); }
+}
+(async () => {
+    try {
+        const { exists } = await api("/api/has_save", "GET");
+        loadBtn.disabled = !exists;    
+    } catch (err) { console.error(err); }
+})();
+
