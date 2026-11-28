@@ -49,7 +49,7 @@ const ROOMS = {
     },
 };
 
-//--game state--
+//--game state(gets saved!)--
 function newState() {
     return {
         room: "start",
@@ -80,3 +80,102 @@ window.addEventListener("keydown", e => {
 })
 window.addEventListener("keyup", e => {keys[e.key] = false; });
 
+//--helpers--
+function overlap(a, b) {
+    return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+}
+const hitbox = () => ({x: state.player.x, y: state.player.y, w:30, h:30 });
+
+function ROOMenter(id, spawn) {
+    state.room = id;
+    if (spawn) {state.player.x = spawn.x; state.player.y = spawn.y; }
+    const def = ROOMS[id].boss;
+    boss = def && !state.bossesDefeated.includes(def.id)
+    ? {...def, hp: def.maxHp , x:600, y:230, w:50, h:50 } 
+    : null;
+}
+
+
+//--start screen--
+async function api(url, method = "POST", body = null) {
+    const options = { method };
+    if (body) {
+        options.headers = { "Content-Type": "application/json" };
+        options.body = JSON.stringify(body);      // turn the object into text
+    }
+    const res = await fetch(url, options);
+    if (!res.ok) throw new Error("Server error " + res.status);
+    return res.json();
+}
+
+
+const startScreen = document.getElementById("start-screen");
+const gameScreen = document.getElementById("game-screen");
+const endScreen = document.getElementById("end-screen");
+const startBtn = document.getElementById("start-btn");
+const loadBtn = document.getElementById("load-btn");
+const restartBtn = document.getElementById("restart-btn");
+const startMsg = document.getElementById("start-msg");
+
+function showScreen(screen) {
+    for (const s of [startScreen, gameScreen, endScreen]) s.hidden = true;
+    screen.hidden = false;
+}
+function showGame(state) {
+    showScreen(gameScreen);
+}
+function showGame(data) {
+    gameState = data;
+    if (data.status === "playing") {
+        showScreen(gameScreen);
+    } else {
+        showScreen(endScreen);
+    }
+}
+
+//--buttons--
+startBtn.onclick = async () => {
+    try { showGame(await api("/api/reset", "POST")); }
+    catch (err) { startMsg.textContent = "Could not start: " + err.message; }
+};
+loadBtn.onclick = async () => {
+    try { showGame(await api("/api/state", "GET")); }
+    catch (err) { startMsg.textContent = "Could not load: " + err.message; }
+};
+restartBtn.onclick = async () => {
+    try { showGame (await api("/api/reset", "POST")); }
+    catch (err) { console.error(err); }
+}
+(async () => {
+    try {
+        const { exists } = await api("/api/has_save", "GET");
+        loadBtn.disabled = !exists;    
+    } catch (err) { console.error(err); }
+})();
+
+const saveBtn = document.getElementById("save-btn");
+saveBtn.onclick = async () => {
+    try {
+        await api("/api/save", "POST", gameState);
+        messageP.textContent = "Game saved!";
+    } catch (err) {
+        messageP.textContent = "Save failed: " + err.message;
+    }
+};
+
+//--quit button--
+const quitBtn = document.getElementById("quit-btn");
+console.log("quitBtn is:", quitBtn);
+
+quitBtn.onclick = async () => {
+    console.log("quit clicked");
+    showScreen(startScreen);
+    startMsg.textContent = "";
+    try {
+        const { exists } = await api("/api/has_save", "GET");
+        loadBtn.disabled = !exists;
+    } catch (err) { console.error(err); }
+};
+
+// ---------- LOOP ----------
+function loop() { update(); draw(); requestAnimationFrame(loop); }
