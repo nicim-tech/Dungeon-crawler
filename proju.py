@@ -86,10 +86,3 @@ def attack():
 if __name__ == "__main__":
     app.run(debug=True)
 
-#doors
-# new_state():
-"steps": 0, "doorAt": 6,
-
-# clean_state():
-s["steps"] = max(0, min(50, int(data.get("steps", 0))))
-s["doorAt"] = max(1, min(50, int(data.get("doorAt", 6))))
