@@ -238,7 +238,7 @@ function showGame(data) {
     gameState = data;
     if (data.status === "playing") {
         showScreen(gameScreen);
-         enterRoom(state.room);
+         enterRoom(data.room);
     } else {
         showScreen(endScreen);
     }
