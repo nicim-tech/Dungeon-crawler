@@ -18,7 +18,8 @@ def clean_state(data):
     state = new_state()
     try:
         state["hp"] = max(0, min(100, int(data.get("hp",100))))
-        state["shield"] = max(0, min(100, int(data.get("floor", 1))))
-        state["floor"] = max(3, min(MAX_FLOOR, int(data.get("floor", 1))))
+        state["shield"] = max(0, min(100, int(data.get("shield", 0))))
+        state["floor"] = max(1, min(MAX_FLOOR, int(data.get("floor", 1))))
     except(TypeError, ValueError):
-        
+        return new_state()
+    return state
