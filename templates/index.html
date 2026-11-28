@@ -7,21 +7,18 @@
     <link rel="stylesheet" href="/static/proju.css">
 </head>
 <body>
-    <header>
-        <section id="start-screen"></section>
+    <main>
+    <!-- Start screen -->
+    <section id="start-screen">
         <h1>Dungeon crawler</h1>
         <h2>Enter Catacombs</h2>
-            <p>Choose right doors and fight monsters</p>
-            <button id="start-btn">Start a new game</button>
-            <button id="load-btn" disabled>Continue saved game</button>
-            <p id="start-msg"></p>
-        </section>
-    </header>
-    <main>
-        <!-- Start screen -->
-            
+        <p>Choose right doors and fight monsters</p>
+        <button id="start-btn">Start a new game</button>
+        <button id="load-btn" disabled>Continue saved game</button>
+        <p id="start-msg"></p>
+    </section>
 
-        <!-- Game screen -->
+    <!-- Game screen -->
 <section id="game-screen" hidden>
     <div id="stats">
         <p>HP: <span id="hp-text">100</span></p>

@@ -231,21 +231,19 @@ function showScreen(screen) {
     for (const s of [startScreen, gameScreen, endScreen]) s.hidden = true;
     screen.hidden = false;
 }
-function showGame(state) {
-    showScreen(gameScreen);
-}
+
 function showGame(data) {
     gameState = data;
     if (data.status === "playing") {
         showScreen(gameScreen);
-         enterRoom(data.room);
+         enterRoom(data.floor);
     } else {
         showScreen(endScreen);
     }
 }
 async function saveGame() {
     try {
-        await api("/api/save", "POST", state);
+        await api("/api/save", "POST", gameState);
         messageP.textContent = "Game saved!";
     } catch (err) {
         messageP.textContent = "Save failed: " + err.message;
